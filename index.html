@@ -49,11 +49,25 @@
 	   .party {
 	       color:  #888;
 	   }
+       ul#footer {
+           list-style-type: none;
+           padding: 0;
+           position: absolute;
+           right: 50px;
+           font-size: 12px;
+       }
+       ul#footer li {
+           float: left;
+           margin-right: 10px;
+       }
 	</style>
 
 </head>
 <body>
 		<h1>NSW Schools</h1>
+        <p>
+            NSW Australian Primary Schools mapped and visualized using SIMILE Exhibit JS library. Includes data from the SMH website for the <a href='http://www.smh.com.au/interactive/2010/schools_data%20/Primary%20Top%2050s%20(2).pdf'>2011 top 50 NSW Primary Schools</a> and data from the Better Education site for the <a href='http://bettereducation.com.au/school/Primary/nsw/nsw_top_primary_schools.aspx'>2012 NSW top Primary Schools</a>.
+        </p>
 		<div ex:role="collection" ex:itemTypes="PubSchool,PrivSchool,PreSchool"></div>
 		 <table width="100%">
 	        <tr valign="top">
@@ -167,5 +181,9 @@
 				</td>
 	        </tr>
 	    </table>
+        <ul id="footer">
+            <li><a href="https://github.com/aullman/nsw-schools">View Source</a></li>
+            <li><a href="https://github.com/aullman/nsw-schools/issues/new">Report Issue</a></li>
+        </ul>
 </body>
 </html>
