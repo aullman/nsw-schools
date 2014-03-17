@@ -952,7 +952,7 @@
       score2013: 98,
       score2011: 99,
       score2010: 99,
-      latlong: "-37.810563,145.034467"
+      latlong: "-33.899189,151.132016"
     }, {
       type: 'PubSchool',
       label: 'Lane Cove Public School',
