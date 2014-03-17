@@ -11,7 +11,7 @@ var schoolMap = {},
   requestQueue = [],
   requestInterval;
 
-function fetchLatLong(address) {
+function fetchLatLong(address, complete) {
   console.error("Fetch for " + address);
   request({
     url: 'https://maps.googleapis.com/maps/api/geocode/json',
@@ -30,6 +30,7 @@ function fetchLatLong(address) {
     } else {
       console.error("Error: ", err);
     }
+    if (complete) complete.call();
   });
 }
 
@@ -37,12 +38,14 @@ function enqueueAddress(address) {
   requestQueue.push(address);
   if (!requestInterval) requestInterval = setInterval(function () {
     console.error("Interval: " + requestQueue.length);
-    if (requestQueue.length > 0) {
+    if (requestQueue.length > 1) {
       fetchLatLong(requestQueue.pop());
     } else {
       clearInterval(requestInterval);
-      console.log(Object.keys(schoolMap).map(function(key){return schoolMap[key];}));
-      process.exit();
+      fetchLatLong(requestQueue.pop(), function () {
+        console.log(Object.keys(schoolMap).map(function(key){return schoolMap[key];}));
+        process.exit();
+      });
     }
   }, 300);
 }
@@ -50,13 +53,15 @@ function enqueueAddress(address) {
 
 
 schools.forEach(function (school) {
+  if (school.label.indexOf(school.suburb) < 0) {
+    school.label = school.label + ',' + school.suburb;
+  }
   var key = school.label;
   if (!schoolMap.hasOwnProperty(school.label)) {
     schoolMap[key] = school;
-    schoolMap[key].label = school.label.substr(0, school.label.indexOf(school.suburb)-1);
-    // TODO: Lookup the location using the Google Geocoding API
-    // https://developers.google.com/maps/documentation/geocoding/
-    enqueueAddress(key);
+    if (!school.latlong) {
+      enqueueAddress(key);
+    }
   } else if (school.score2010){
     schoolMap[key].score2010 = school.score2010;
   } else if (school.score2011) {
