@@ -1079,7 +1079,7 @@
     score2013: 97,
     score2011: 98,
     score2010: 98,
-    latlong: '-33.894745,151.10849'
+    latlong: '-33.883047,151.114417'
   }, {
     type: 'PubSchool',
     label: 'Turramurra Public School,Turramurra,NSW,2074',
